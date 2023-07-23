@@ -115,37 +115,36 @@ const projectiles = [];
 const asteroids = [];
 
 window.setInterval(() => {
-  const index=Math.floorloor(Math.random()*4);
+  const index = Math.floorloor(Math.random() * 4);
   let x, y;
   let vx, vy;
-  let radius=50 * Math.random() + 10;
+  let radius = 50 * Math.random() + 10;
 
-  switch(index){
+  switch (index) {
     case 0: // left side of the screen
-      x=0-radius;
-      y=Math.random()*canvas.height;
-      vx=1;
-      vy=0;
+      x = 0 - radius;
+      y = Math.random() * canvas.height;
+      vx = 1;
+      vy = 0;
       break;
     case 1: // bottom side of the screen
-      x=Math.random()*canvas.width;
-      x=canvas.height+radius;
-      vx=0;
-      vy=-1;
+      x = Math.random() * canvas.width;
+      x = canvas.height + radius;
+      vx = 0;
+      vy = -1;
       break;
     case 2: // right side of the screen
-      x=canvas.width+radius;
-      y=Math.random()*canvas.height;
-      vx=-1;
-      vy=0;
+      x = canvas.width + radius;
+      y = Math.random() * canvas.height;
+      vx = -1;
+      vy = 0;
       break;
     case 3: // top side of the screen
-    x=Math.random()*canvas.width;
-    x=0-radius;
-    vx=0;
-    vy=1;
-    break;
-
+      x = Math.random() * canvas.width;
+      x = 0 - radius;
+      vx = 0;
+      vy = 1;
+      break;
   }
   asteroids.push(
     new Asteroid({
@@ -185,22 +184,23 @@ function animate() {
       projectiles.splice(i, 1);
     }
   }
-  // using for instead od forEach to render things from the back of the array and avoid flash due to jumping og the elements ////DOUBT////
+}
+// using for instead od forEach to render things from the back of the array and avoid flash due to jumping og the elements ////DOUBT////
 
-  // ASTEROID MANAGEMENT
-  for (let i = asteroids.length - 1; i >= 0; i--) {
-    const asteroid = asteroids[i];
-    asteroid.update();
+// ASTEROID MANAGEMENT
+for (let i = asteroids.length - 1; i >= 0; i--) {
+  const asteroid = asteroids[i];
+  asteroid.update();
 
-    // garbage collection of projectiles
-    if (
-      asteroid.position.x + asteroid.radius < 0 ||
-      asteroid.position.x - asteroid.radius > canvas.width ||
-      asteroid.position.y - asteroid.radius > canvas.height ||
-      asteroid.position.y + asteroid.radius < 0
-    ) {
-      asteroids.splice(i,1)
-
+  // garbage collection of projectiles
+  if (
+    asteroid.position.x + asteroid.radius < 0 ||
+    asteroid.position.x - asteroid.radius > canvas.width ||
+    asteroid.position.y - asteroid.radius > canvas.height ||
+    asteroid.position.y + asteroid.radius < 0
+  ) {
+    asteroids.splice(i, 1);
+  }
   // player.velocity.x = 0;
   // player.velocity.y = 0;
 
@@ -262,5 +262,4 @@ window.addEventListener("keyup", (event) => {
       keys.d.pressed = false;
       break;
   }
-  console.log(event);
 });
